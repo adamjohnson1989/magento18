@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <sm_vendor_index_create>
+        <reference name="content">
+            <block name="vendor" type="core/template" template="vendor/create.phtml"/>
+        </reference>
+    </sm_vendor_index_create>
+
+    <sm_vendor_index_index>
+        <reference name="content">
+            <block name="list.vendor" type="sm_vendor/vendor_list" template="vendor/list.phtml"/>
+        </reference>
+    </sm_vendor_index_index>
+
+    <sm_vendor_index_view>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block name="vendor.view" type="sm_vendor/vendor_view" template="vendor/view.phtml"/>
+        </reference>
+    </sm_vendor_index_view>
+</layout>

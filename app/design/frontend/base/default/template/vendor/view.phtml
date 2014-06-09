@@ -1,0 +1,23 @@
+<?php
+    $vendor = $this->getVendor();
+    $productCollection = $this->getProductByVendorId($vendor->getId());
+
+?>
+<div class="vendor-info">
+    <div class="vendor-detail">
+        <h2><?php echo Mage::helper('sm_vendor')->__('Vendor Infomation:')   ?></h2>
+        <dl>
+            <dt><?php echo Mage::helper('sm_vendor')->__('Vendor Name:') ?></dt>
+            <dd><?php echo $vendor->getVendorName() ?></dd>
+            <dt><?php echo Mage::helper('sm_vendor')->__('Vendor Email:') ?></dt>
+            <dd><?php echo $vendor->getVendorEmail() ?></dd>
+            <dt><?php echo Mage::helper('sm_vendor')->__('Vendor Contact:') ?></dt>
+            <dd><?php echo $vendor->getVendorContact() ?></dd>
+            <dt><?php echo Mage::helper('sm_vendor')->__('Vendor Description:') ?></dt>
+            <dd><?php echo $vendor->getVendorDesc() ?></dd>
+        </dl>
+    </div>
+    <div class="vendor-product">
+        <?php var_dump($productCollection->getSize()) ?>
+    </div>
+</div>

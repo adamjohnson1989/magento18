@@ -1,0 +1,48 @@
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('sm_vendor')->__('Register Vendor') ?></h1>
+</div>
+<form action="<?php echo $this->getUrl('vendor/index/post'); ?>" id="vendorForm" method="post">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('sm_vendor')->__('Vendor Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[vendor_name]" id="name" title="<?php echo Mage::helper('sm_vendor')->__('Name') ?>" value="" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[vendor_email]" id="email" title="<?php echo Mage::helper('sm_vendor')->__('Email') ?>" value="" class="input-text required-entry validate-email" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label for="contact"><?php echo Mage::helper('sm_vendor')->__('Contact') ?></label>
+                <div class="input-box">
+                    <input name="vendor[vendor_contact]" id="contact" title="<?php echo Mage::helper('sm_vendor')->__('Contact') ?>" value="" class="input-text required-entry" type="text" />
+                </div>
+            </li>
+            <li class="wide">
+                <label for="desc" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Description') ?></label>
+                <div class="input-box">
+                    <textarea name="vendor[vendor_desc]" id="desc" title="<?php echo Mage::helper('sm_vendor')->__('Description') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo Mage::helper('sm_vendor')->__('* Required Fields') ?></p>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('sm_vendor')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('sm_vendor')->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('vendorForm', true);
+    //]]>
+</script>

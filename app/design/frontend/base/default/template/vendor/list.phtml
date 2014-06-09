@@ -1,0 +1,13 @@
+<?php
+    $vendors = $this->getVendorCollection();
+?>
+<h2><?php echo Mage::helper('sm_vendor')->__("List Vendor") ?></h2>
+<?php if($vendors->getSize()):?>
+    <ul>
+        <?php foreach($vendors as $vendor): ?>
+            <li><a href="<?php echo $this->getUrl('vendor/index/view',array('id'=>$vendor->getId()));?>"><?php echo $vendor->getVendorName()?></a></li>
+        <?php endforeach;?>
+    </ul>
+<?php else:?>
+    <p><?php echo Mage::helper('sm_vendor')->__("There is no vendor!") ?></p>
+<?php endif;?>
