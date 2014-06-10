@@ -1,0 +1,109 @@
+<?php
+    $vendors = Mage::getModel('sm_vendor/vendor')->getCollection();
+    $rootId = Mage::app()->getStore()->getRootCategoryId();
+    $categories = Mage::getModel('catalog/category')->load($rootId);
+    $childCat = $categories->getAllChildren();
+    $childCatArr = explode(',',$childCat);
+
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('sm_vendor')->__('Create Quick Product (Simple product)') ?></h1>
+</div>
+<form action="<?php echo $this->getUrl('vendor/product/post'); ?>" id="vendorProductForm" method="post">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('sm_vendor')->__('Product Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="product_name" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Product Name') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[product_name]" id="product_name" title="<?php echo Mage::helper('sm_vendor')->__('Name') ?>" value="" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_sku" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Product Sku') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[product_sku]" id="product_sku" title="<?php echo Mage::helper('sm_vendor')->__('Product Sku') ?>" value="" class="input-text required-entry validate-code" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_weight" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Product Weight') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[product_weight]" id="product_weight" title="<?php echo Mage::helper('sm_vendor')->__('Product Weight') ?>" value="" class="input-text required-entry validate-number" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_price" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Product Price') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[product_price]" id="product_price" title="<?php echo Mage::helper('sm_vendor')->__('Product Price') ?>" value="" class="input-text required-entry validate-number" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_qty" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Product Qty') ?></label>
+                    <div class="input-box">
+                        <input name="vendor[product_qty]" id="product_qty" title="<?php echo Mage::helper('sm_vendor')->__('Product Qty') ?>" value="" class="input-text required-entry validate-greater-than-zero" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_vendor" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Vendor') ?></label>
+                    <div class="input-box">
+                        <select id="product_vendor" name="vendor[product_vendor]" class="required-entry validate-select">
+                            <option value=""><?php echo $this->__("Choose Vendor") ?></option>
+                            <?php foreach($vendors as $vendor): ?>
+                                <option value="<?php echo $vendor->getId()?>"><?php echo $vendor->getVendorName() ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="product_cat" class=""><?php echo Mage::helper('sm_vendor')->__('Category') ?></label>
+                    <div class="input-box">
+                        <?php foreach($childCatArr as $_catId): ?>
+                            <?php
+                                $catModel = Mage::getModel('catalog/category')->load($_catId);
+                            ?>
+                            <?php if($catModel->getIsActive()): ?>
+                                <input type="checkbox" class="" name="vendor[product_cat][]" value="<?php echo $catModel->getId()?>"><?php echo $catModel->getName()?><br>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="desc" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Short Description') ?></label>
+                <div class="input-box">
+                    <textarea name="vendor[vendor_desc]" id="desc" title="<?php echo Mage::helper('sm_vendor')->__('Short Description') ?>" class="required-entry input-text" cols="5" rows="2"></textarea>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="vendor_shortdesc" class="required"><em>*</em><?php echo Mage::helper('sm_vendor')->__('Description') ?></label>
+                <div class="input-box">
+                    <textarea name="vendor[vendor_shortdesc]" id="vendor_shortdesc" title="<?php echo Mage::helper('sm_vendor')->__('Description') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo Mage::helper('sm_vendor')->__('* Required Fields') ?></p>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('sm_vendor')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('sm_vendor')->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('vendorProductForm', true);
+    //]]>
+</script>

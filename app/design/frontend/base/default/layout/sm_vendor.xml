@@ -1,5 +1,18 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/vendor.css</name>
+            </action>
+        </reference>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="sm_vendor"><label>Become a Vendor</label><url helper="sm_vendor/createVendorUrl"/><title>Become a Vendor</title><prepare/><urlParams/><position>10</position></action>
+            <action method="addLink" translate="label title" module="sm_vendor"><label>List Vendor</label><url helper="sm_vendor/listVendorUrl"/><title>List Vendor</title><prepare/><urlParams/><position>11</position></action>
+            <action method="addLink" translate="label title" module="sm_vendor"><label>Create Product</label><url helper="sm_vendor/createProductUrl"/><title>Create Product</title><prepare/><urlParams/><position>12</position></action>
+        </reference>
+    </default>
     <sm_vendor_index_create>
         <reference name="content">
             <block name="vendor" type="core/template" template="vendor/create.phtml"/>
@@ -20,4 +33,13 @@
             <block name="vendor.view" type="sm_vendor/vendor_view" template="vendor/view.phtml"/>
         </reference>
     </sm_vendor_index_view>
+
+    <sm_vendor_product_create>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block name="vendor.product" type="core/template" template="vendor/product/create.phtml"/>
+        </reference>
+    </sm_vendor_product_create>
 </layout>

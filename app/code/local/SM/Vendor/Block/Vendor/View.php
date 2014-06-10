@@ -7,6 +7,7 @@
  */
 class SM_Vendor_Block_Vendor_View extends Mage_Core_Block_Template
 {
+    protected  $_vendorCollection;
     /**
      * Retrieve current vendor model
      *
@@ -18,17 +19,24 @@ class SM_Vendor_Block_Vendor_View extends Mage_Core_Block_Template
             return Mage::registry('current_vendor');
         }
     }
-
-    public function getProductByVendorId($id)
-    {
-        $product = null;
-        if($id){
-            $product = Mage::getModel('catalog/product')->getCollection()
-                                                           ->addAttributeToSelect('*')
-                                                           ->addAttributeToFilter('vendor',$id)->load();
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($product);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($product);
+    public function getVendorId(){
+        $id = null;
+        $vendor = $this->getVendor();
+        if(is_object($vendor) && $vendor->getId()){
+            $id = $vendor->getId();
         }
-        return $product;
+        return $id;
+    }
+
+    public function getProductCollection()
+    {
+        if(is_null($this->_vendorCollection)){
+            $this->_vendorCollection = Mage::getModel('catalog/product')->getCollection()
+                                                           ->addAttributeToSelect('*')
+                                                           ->addAttributeToFilter('vendor',$this->getVendorId())->load();
+            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_vendorCollection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_vendorCollection);
+        }
+        return $this->_vendorCollection;
     }
 }
